@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wi-Fi Grátis</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1, p {
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #video-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    #success-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="start-container">
+  <h1>Bem-vindo ao Wi-Fi Grátis!</h1>
+  <p>Para liberar o acesso, assista a um rápido vídeo.</p>
+  <button id="start-button">Assistir e Conectar</button>
+</div>
+
+<div id="video-container">
+  <h1>Assistindo Anúncio...</h1>
+  <>
+  <div id="ad-slot" style="width: 320px; height: 180px; background-color: #eee; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+    <p>Carregando anúncio...</p>
+  </div>
+  <p id="timer">Aguarde 15 segundos...</p>
+  <button id="unlock-button" disabled>Liberar Wi-Fi</button>
+</div>
+
+<div id="success-container">
+  <h1>Conexão Liberada!</h1>
+  <p>Agora você pode navegar à vontade.</p>
+  <a href="https://www.google.com" target="_blank">
+    <button>Ir para a Internet</button>
+  </a>
+</div>
+
+<script>
+  const startButton = document.getElementById('start-button');
+  const unlockButton = document.getElementById('unlock-button');
+  const startContainer = document.getElementById('start-container');
+  const videoContainer = document.getElementById('video-container');
+  const successContainer = document.getElementById('success-container');
+  const timerDisplay = document.getElementById('timer');
+
+  startButton.addEventListener('click', () => {
+    startContainer.style.display = 'none';
+    videoContainer.style.display = 'flex';
+    startTimer(15); // Duração do vídeo/anúncio em segundos
+  });
+
+  unlockButton.addEventListener('click', () => {
+    videoContainer.style.display = 'none';
+    successContainer.style.display = 'flex';
+  });
+
+  function startTimer(duration) {
+    let timer = duration, seconds;
+    const interval = setInterval(() => {
+      seconds = parseInt(timer);
+      timerDisplay.textContent = `Aguarde ${seconds} segundos...`;
+
+      if (--timer < 0) {
+        clearInterval(interval);
+        unlockButton.disabled = false;
+        timerDisplay.textContent = "Você pode liberar o Wi-Fi!";
+      }
+    }, 1000);
+  }
+</script>
+
+<>
+
+</body>
+</html>
